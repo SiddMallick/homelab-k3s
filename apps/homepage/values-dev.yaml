@@ -135,6 +135,11 @@ config:
             icon: openmediavault.png
             href: http://192.168.0.80
             description: OpenMediaVault for managing remote storage
+        - ArgoCD:
+            icon: argo-cd.png
+            href: https://argocd.siddhomelab.cc
+            description: Argo CD for Continuous Delivery
+
 
     - Monitoring:
         - Grafana:
