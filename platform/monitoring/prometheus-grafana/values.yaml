@@ -1,0 +1,49 @@
+# values.yaml
+# helm upgrade monitoring prometheus-community/kube-prometheus-stack \
+#   -n monitoring \
+#   -f values.yaml
+grafana:
+  image:
+    pullPolicy: Always
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - grafana.siddhomelab.cc
+    path: /
+    tls:
+      - secretName: local-sidd-cc-tls-grafana-prometheus
+        hosts:
+          - grafana.siddhomelab.cc
+  
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+prometheus:
+  image:
+    pullPolicy: Always
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - prometheus.siddhomelab.cc
+    path: /
+    pathType: Prefix
+    tls:
+      - secretName: local-sidd-cc-tls-grafana-prometheus
+        hosts:
+          - prometheus.siddhomelab.cc
+  
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi

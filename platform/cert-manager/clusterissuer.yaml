@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-cloudflare
+spec:
+  acme:
+    email: msiddhartha1600@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+    - dns01:
+        cloudflare:
+          email: msiddhartha1600@gmail.com
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret # <- Create this secret first
+            key: api-token
+      selector:
+        dnsZones:
+          - "siddhomelab.cc"

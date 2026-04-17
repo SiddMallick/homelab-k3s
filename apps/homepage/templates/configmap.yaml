@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    environment: {{ .Values.environment }}
+data:
+  kubernetes.yaml: |
+    {{- toYaml .Values.config.kubernetes | nindent 4 }}
+  settings.yaml: |
+    {{- toYaml .Values.config.settings | nindent 4 }}
+  custom.css: |
+    {{- toYaml .Values.config.customCss | nindent 4 }}
+  custom.js: |
+    {{- toYaml .Values.config.customJs | nindent 4 }}
+  bookmarks.yaml: |
+    {{- toYaml .Values.config.bookmarks | nindent 4 }}
+  services.yaml: |
+    {{- toYaml .Values.config.services | nindent 4 }}
+      
+  widgets.yaml: |
+    {{- toYaml .Values.config.widgets | nindent 4 }}
+  docker.yaml: |
+    {{- toYaml .Values.config.docker | nindent 4 }}

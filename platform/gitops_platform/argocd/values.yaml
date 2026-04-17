@@ -1,0 +1,17 @@
+configs:
+  params:
+    # Required: Traefik terminates TLS, so ArgoCD must run in insecure mode
+    server.insecure: "true"
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    hosts:
+      - argocd.siddhomelab.cc
+    # tls:
+    #   - secretName: argocd-server-tls
+    #     hosts:
+    #       - argocd.siddhomelab.cc

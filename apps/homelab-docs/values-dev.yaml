@@ -1,0 +1,46 @@
+environment: "dev-homelab"
+
+replicaCount: 2
+
+image:
+  repository: msiddhartha1600/docusaurus-homelab-docs
+  tag: 1.0.1
+  pullPolicy: Always
+
+securityContext: {}
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "50Mi"
+  limits:
+    cpu: "100m"
+    memory: "100Mi"
+
+livenessProbe: {}
+  # tcpSocket:
+  #   port: 80
+  # initialDelaySeconds: 5
+  # timeoutSeconds: 5
+  # successThreshold: 1
+  # failureThreshold: 3
+  # periodSeconds: 60
+
+readinessProbe: {}
+
+containerPort: 80
+
+nodeSelector:
+  kubernetes.io/hostname: deb-k3s-agent
+
+service:
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  host: homelab-docs.siddhomelab.cc
+  path: /
+  pathType: Prefix
+  port: 80
+  tlsSecretName: local-sidd-cc-tls-homelab-docs

@@ -1,0 +1,180 @@
+image:
+  repository : ghcr.io/gethomepage/homepage
+  tag: latest
+  pullPolicy: Always
+
+environment: dev-homelab
+
+replicaCount: 2
+
+resources:
+  requests:
+    cpu: "300m"
+    memory: "100Mi"
+  limits:
+    cpu: "500m"
+    memory: "200Mi"
+
+securityContext: {}
+  # allowPrivilegeEscalation: false
+  # capabilities:
+  #   drop:
+  #     - ALL
+  # runAsNonRoot: true
+  # runAsUser: 1000
+  # runAsGroup: 1000
+  # readOnlyRootFilesystem: true
+  # seccompProfile:
+  #   type: RuntimeDefault
+
+homepageAllowdHosts: "gethomepage.dev,homepage.siddhomelab.cc,localhost"
+
+containerPort: 3000
+
+service:
+  port: 80
+
+livenessProbe: {}
+    #   httpGet:
+    #   path: /api/healthcheck
+    #   port: 3000
+    #   initialDelaySeconds: 15
+    #   periodSeconds: 25
+readinessProbe: {}
+
+
+volumeMounts:
+  - mountPath: /app/config/custom.js
+    name: homepage-config
+    subPath: custom.js
+  - mountPath: /app/config/custom.css
+    name: homepage-config
+    subPath: custom.css
+  - mountPath: /app/config/bookmarks.yaml
+    name: homepage-config
+    subPath: bookmarks.yaml
+  - mountPath: /app/config/docker.yaml
+    name: homepage-config
+    subPath: docker.yaml
+  - mountPath: /app/config/kubernetes.yaml
+    name: homepage-config
+    subPath: kubernetes.yaml
+  - mountPath: /app/config/services.yaml
+    name: homepage-config
+    subPath: services.yaml
+  - mountPath: /app/config/settings.yaml
+    name: homepage-config
+    subPath: settings.yaml
+  - mountPath: /app/config/widgets.yaml
+    name: homepage-config
+    subPath: widgets.yaml
+  - mountPath: /app/config/logs
+    name: logs
+volumes:
+  - name: homepage-config
+    configMap:
+      name: homepage
+  - name: logs
+    emptyDir: {}
+
+
+config:
+  kubernetes:
+    mode: cluster
+  settings:
+    title: Siddhartha's Homelab - Homepage
+    background: 
+      image: https://blogger.googleusercontent.com/img/a/AVvXsEgDfTMFyCGktOI-RiLQDqLgiRYKK0wjVlSETCPuRjIsIG3DCGCuPokFisOaLtO2nyRUWvrvuAr-n3KcUdxE-mx9tbkhq9VBk5uVCoIBSnb5vg6u9IBX4WUpcKygI4eDsKGx63KA4_zxGhCMnHVqQSzx0tRKqTL_AeV0k7Xd6Iv1b8cqUjicTNVMB5sJtHvP=s1920-rw
+      blur: sm
+      saturate: 80
+      brightness: 100
+      opacity: 100
+    theme: dark
+    color: slate
+  customCss: ""
+  customJs: ""
+  bookmarks:
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+        - Docker:
+            - abbr: DKR
+              href: https://hub.docker.com/
+    - Platform:
+        - Kubernetes:
+            - abbr: K8S
+              href: https://kubernetes.io/
+        - AWS Console:
+            - abbr: AWS
+              href: https://ap-south-1.signin.aws.amazon.com/
+    - Chatbots:
+        - ChatGPT:
+            - abbr: CHT
+              href: https://chatgpt.com/
+        - Gemini:
+            - abbr: GMN
+              href: https://gemini.google.com
+  services:
+    - Apps:
+        - Jellyfin:
+            icon: jellyfin.png
+            href: https://jellyfin.tail24bcb7.ts.net
+            description: JellyFin homelab server with tailscale.
+        - Homelab Docs:
+            icon: docusaurus.png
+            href: https://homelab-docs.siddhomelab.cc
+            description: Homelab Documentation
+    
+    - Platforms:
+        - Proxmox Server:
+            icon: proxmox.png
+            href: https://192.168.0.201:8006
+            description: Proxmox Server for managing homelab VMs
+        - OpenMediaVault:
+            icon: openmediavault.png
+            href: http://192.168.0.80
+            description: OpenMediaVault for managing remote storage
+
+    - Monitoring:
+        - Grafana:
+            icon: grafana.svg
+            href: https://grafana.siddhomelab.cc
+            description: Grafana App Link for homelab cluster
+        - Prometheus:
+            icon: prometheus.png
+            href: https://prometheus.siddhomelab.cc
+            description: Prometheus Link for homelab cluster
+      
+  widgets:
+    - kubernetes:
+        cluster:
+          show: false
+          cpu: false
+          memory: false
+          showLabel: false
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    - resources:
+        backend: resources
+        expanded: true
+        cpu: true
+        memory: true
+        network: default
+    - search:
+        provider: google
+        target: _blank
+  docker: ""
+
+ingress:
+  enabled: true
+  className: traefik
+  host: homepage.siddhomelab.cc
+  path: /
+  pathType: Prefix
+  port: 80
+  tlsSecretName: local-sidd-cc-tls

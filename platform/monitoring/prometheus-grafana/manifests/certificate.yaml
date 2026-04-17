@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: local-sidd-cc-grafana-prometheus
+  namespace: monitoring
+spec:
+  secretName: local-sidd-cc-tls-grafana-prometheus
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  commonName: "*.siddhomelab.cc"
+  dnsNames:
+  - "siddhomelab.cc"
+  - "*.siddhomelab.cc"

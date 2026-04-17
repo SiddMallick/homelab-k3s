@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jellyfin
+  labels:
+    environment: dev-homelab
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homepage
+  labels:
+    environment: dev-homelab
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tailscale
+  labels:
+    environment: dev-homelab
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    environment: dev-homelab
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: docs
+  labels:
+    environment: dev-homelab
