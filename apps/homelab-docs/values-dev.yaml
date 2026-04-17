@@ -1,6 +1,6 @@
 environment: "dev-homelab"
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: msiddhartha1600/docusaurus-homelab-docs
