@@ -1,4 +1,4 @@
-# HomeLab: JellyFin Media Server and OpenMediaVault
+# HomeLab: K3s
 
 ## Hardware used
 
