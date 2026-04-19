@@ -125,7 +125,7 @@ config:
             icon: docusaurus.png
             href: https://homelab-docs.siddhomelab.cc
             description: Homelab Documentation
-        - Draw IO:
+        - DrawIO:
             icon: draw-io.png
             href: https://draw.io.siddhomelab.cc
             description: Self hosted Draw IO
