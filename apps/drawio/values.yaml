@@ -1,0 +1,36 @@
+environment: dev-homelab
+replicaCount: 1
+
+image:
+  repository: jgraph/drawio
+  tag: 29.6.7
+  pullPolicy: IfNotPresent
+
+securityContext: {}
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "256Mi"
+  limits:
+    cpu: "800m"
+    memory: "256Mi"
+containerPort: 80
+
+livenessProbe: {}
+readinessProbe: {}
+
+service:
+  port: 80
+
+ingress:
+  enabled: false
+  # className: traefik
+  # host: draw.io.siddhomelab.cc
+  # path: /
+  # pathType: Prefix
+  # port: 80
+  # tlsSecretName: local-sidd-cc-tls-drawio
+
+
+
