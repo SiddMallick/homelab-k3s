@@ -12,7 +12,7 @@ persistence:
   media:
     enabled: true
     size: 100Gi
-    storageClass: 'nfs-media-retain'
+    storageClass: 'smb'
 
 podSecurityContext:
   fsGroup: 1000

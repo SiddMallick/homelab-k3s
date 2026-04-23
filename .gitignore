@@ -1,1 +1,2 @@
 kube-config.yaml
+apps/jellyfin/smb-creds.yaml
