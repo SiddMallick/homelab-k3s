@@ -8,11 +8,11 @@ persistence:
   config:
     enabled: true
     size: 5Gi
-    storageClass: 'local-path'
+    storageClass: 'local-path-delete'
   media:
     enabled: true
     size: 100Gi
-    storageClass: 'smb'
+    storageClass: 'nfs-media-retain'
 
 podSecurityContext:
   fsGroup: 1000

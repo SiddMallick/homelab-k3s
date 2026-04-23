@@ -5,7 +5,7 @@ metadata:
 provisioner: smb.csi.k8s.io
 parameters:
   source: "//192.168.0.110/media-smb"
-  csi.storage.k8s.io/node-stage-secret-name: smb-creds
+  csi.storage.k8s.io/node-stage-secret-name: smb-creds #Create this
   csi.storage.k8s.io/node-stage-secret-namespace: default
 reclaimPolicy: Retain
 volumeBindingMode: Immediate

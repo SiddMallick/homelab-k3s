@@ -137,7 +137,7 @@ config:
             description: Proxmox Server for managing homelab VMs
         - OpenMediaVault:
             icon: openmediavault.png
-            href: http://192.168.0.178
+            href: http://192.168.0.110
             description: OpenMediaVault for managing remote storage
         - ArgoCD:
             icon: argo-cd.png
