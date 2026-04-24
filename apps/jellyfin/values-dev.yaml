@@ -7,12 +7,10 @@ image:
 persistence:
   config:
     enabled: true
-    size: 5Gi
-    storageClass: 'local-path-delete'
+    existingClaim: 'jellyfin-config-pvc'
   media:
     enabled: true
-    size: 100Gi
-    storageClass: 'nfs-media-retain'
+    existingClaim: 'jellyfin-media-pvc'
 
 podSecurityContext:
   fsGroup: 1000
