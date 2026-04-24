@@ -6,13 +6,19 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://jellyfin.github.io/jellyfin-helm
+  sources:
+  - repoURL: https://jellyfin.github.io/jellyfin-helm
     chart: jellyfin
     targetRevision: 3.2.0
+
+  - repoURL: https://github.com/SiddMallick/homelab-k3s
+    targetRevision: main
+    ref: values
+
+
     helm:
       valueFiles:
-        - values-dev.yaml
+        - jellyfin/values-dev.yaml
     
   destination:
     server: https://kubernetes.default.svc
@@ -22,3 +28,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
+  source:
+    helm:
+      valueFiles:
+        - $values/jellyfin/values-dev.yaml
