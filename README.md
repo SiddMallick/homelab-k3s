@@ -205,11 +205,18 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 3. For installing k3s agent on debian agent (deb-k3s-agent) node (as well as for raspberry pi):
 
 ```bash
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.0.202:6443 K3S_TOKEN=< k3s-server-token > sh -s -
+curl -sfL https://get.k3s.io | K3S_URL=https://SERVER_IP:6443 K3S_TOKEN=< servertoken > sh -s -
 ```
+
+Kubectl:
+
+cat /etc/rancher/k3s/k3s.yaml
+
 
 
 ### Pre-requisites for Raspberry Pi:
+
+
 
 If you are joining a Raspberry Pi either as a k3s server or a k3s agent, the following needs to be performed:
 
@@ -270,3 +277,16 @@ kubectl get secret --namespace monitoring -l app.kubernetes.io/component=admin-s
 kubectl create secret generic cloudflare-api-token-secret \
   --from-literal=api-token=YOUR_API_TOKEN \
   -n cert-manager
+
+
+# nfs-external-provisioner
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+    --set nfs.server=nfs-ip \
+    --set nfs.path=/export/media-nfs-jellyfin
+
+# ArgoCD install:
+helm install argocd argo/argo-cd -n argocd --create-namespace -f values.yaml
+
+Password:
+kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath="{.data.password}" | base64 -d && echo
