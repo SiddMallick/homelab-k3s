@@ -13,19 +13,13 @@ spec:
       targetRevision: master
       ref: values #Used as alias in the helm chart source
 
-    # Helm chart source
+    # Helm chart and certificate source
     - repoURL: https://github.com/SiddMallick/homelab-k3s
-      chart: homepage
+      path: apps/homepage
       targetRevision: master
       helm:
         valueFiles:
         - $values/apps/homepage/values-dev.yaml
-
-    # This is for creating the Certificate before helm deployment of the jellyfin server
-    - repoURL: https://github.com/SiddMallick/homelab-k3s
-      targetRevision: master
-      path: apps/homepage
-
 
   destination:
     server: https://kubernetes.default.svc
