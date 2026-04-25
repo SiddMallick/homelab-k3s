@@ -3,6 +3,8 @@ kind: Certificate
 metadata:
   name: local-sidd-cc-drawio
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   secretName: local-sidd-cc-tls-drawio
   issuerRef:
