@@ -27,7 +27,6 @@ spec:
 
 
 # # If you want to auto-sync, uncomment this
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

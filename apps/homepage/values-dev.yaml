@@ -73,7 +73,7 @@ volumeMounts:
 volumes:
   - name: homepage-config
     configMap:
-      name: homepage-dev
+      name: homepage
   - name: logs
     emptyDir: {}
 
