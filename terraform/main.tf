@@ -1,6 +1,6 @@
-resource "kubernetes_namespace_v1" "dev-namespace" {
+resource "kubernetes_namespace_v1" "dev_namespace" {
   metadata {
-    name = "dev"
+    name = "apps-dev"
   }
 }
 
@@ -60,6 +60,15 @@ resource "kubernetes_manifest" "cluster_issuer" {
   manifest = yamldecode(templatefile("${path.module}/templates/cert-manager/clusterissuer.yaml", {
     email       = var.cloudflare_email_id
     secret-name = kubernetes_secret_v1.cloudflare_api_key.metadata[0].name
+  }))
+}
+
+# Issue certificate for apps
+resource "kubernetes_manifest" "certificate" {
+  depends_on = [ kubernetes_manifest.cluster_issuer, kubernetes_namespace_v1.dev_namespace ]
+  
+  manifest = yamldecode(templatefile("${path.module}/manifests/certificate/certificate.yaml", {
+    namespace = kubernetes_namespace_v1.dev_namespace.metadata[0].name
   }))
 }
 

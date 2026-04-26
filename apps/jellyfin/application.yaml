@@ -28,7 +28,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: jellyfin
+    namespace: apps-dev
 
 
 # If you want to auto-sync, uncomment this

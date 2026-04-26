@@ -2,9 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: local-sidd-cc
-  namespace: homepage
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+  namespace: ${namespace}
 spec:
   secretName: local-sidd-cc-tls
   issuerRef:

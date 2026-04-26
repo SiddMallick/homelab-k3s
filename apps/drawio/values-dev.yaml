@@ -30,7 +30,7 @@ ingress:
   path: /
   pathType: Prefix
   port: 80
-  tlsSecretName: local-sidd-cc-tls-drawio
+  tlsSecretName: local-sidd-cc-tls
 
 
 

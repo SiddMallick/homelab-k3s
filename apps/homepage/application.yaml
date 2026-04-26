@@ -23,7 +23,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: homepage
+    namespace: apps-dev
 
 
 # # If you want to auto-sync, uncomment this
