@@ -106,3 +106,14 @@ resource "helm_release" "nfs-subdir-external-provisioner" {
     }
   ]
 }
+
+# Creating required storage classes for Jellyfin to claim volumes
+resource "kubernetes_manifest" "local_storage_class" {
+  depends_on = [helm_release.nfs-subdir-external-provisioner]
+  manifest   = yamldecode(file("${path.module}/manifests/storage_class/storage-class-local.yaml"))
+}
+
+resource "kubernetes_manifest" "nfs_storage_class" {
+  depends_on = [helm_release.nfs-subdir-external-provisioner]
+  manifest   = yamldecode(file("${path.module}/manifests/storage_class/storage-class-nfs.yaml"))
+}
