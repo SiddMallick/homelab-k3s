@@ -19,10 +19,10 @@ spec:
     server: https://kubernetes.default.svc
     namespace: argocd               # 👈 child apps get created here
 
-  # syncPolicy:
-  #   automated:
-  #     prune: true                   # delete removed apps
-  #     selfHeal: true                # fix drift automatically
+  syncPolicy:
+    automated:
+      prune: true                   # delete removed apps
+      selfHeal: true                # fix drift automatically
 
-    syncOptions:
-      - CreateNamespace=true        # useful if child apps create new namespaces
+  syncOptions:
+    - CreateNamespace=true        # useful if child apps create new namespaces
