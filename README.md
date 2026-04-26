@@ -205,7 +205,7 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 3. For installing k3s agent on debian agent (deb-k3s-agent) node (as well as for raspberry pi):
 
 ```bash
-curl -sfL https://get.k3s.io | K3S_URL=https://SERVER_IP:6443 K3S_TOKEN=< servertoken > sh -s -
+curl -sfL https://get.k3s.io | K3S_URL=https://192.168.0.202:6443 K3S_TOKEN=K103ac687ad4b4925709b6aefbd217ff9df7eda69935b5f6d7bc40542b7a45526bd::server:baf2efcff172a60fbc9893be6aa41664 sh -s -
 ```
 
 Kubectl:
@@ -277,6 +277,7 @@ kubectl get secret --namespace monitoring -l app.kubernetes.io/component=admin-s
 kubectl create secret generic cloudflare-api-token-secret \
   --from-literal=api-token=YOUR_API_TOKEN \
   -n cert-manager
+
 
 
 # nfs-external-provisioner

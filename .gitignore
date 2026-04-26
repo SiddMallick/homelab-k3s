@@ -1,2 +1,7 @@
 kube-config.yaml
 apps/jellyfin/smb-creds.yaml
+*.tfvars
+*.tfstate
+*.tfstate.*
+*.lock.hcl
+.terraform

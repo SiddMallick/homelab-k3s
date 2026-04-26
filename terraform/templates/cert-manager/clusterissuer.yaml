@@ -4,16 +4,16 @@ metadata:
   name: letsencrypt-cloudflare
 spec:
   acme:
-    email: msiddhartha1600@gmail.com
+    email: ${email}
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
     - dns01:
         cloudflare:
-          email: msiddhartha1600@gmail.com
+          email: ${email}
           apiTokenSecretRef:
-            name: cloudflare-api-token-secret # <- Create this secret first
+            name: ${secret-name} # <- Create this secret first
             key: api-token
       selector:
         dnsZones:
