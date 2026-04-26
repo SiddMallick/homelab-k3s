@@ -205,7 +205,7 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 3. For installing k3s agent on debian agent (deb-k3s-agent) node (as well as for raspberry pi):
 
 ```bash
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.0.202:6443 K3S_TOKEN=K103ac687ad4b4925709b6aefbd217ff9df7eda69935b5f6d7bc40542b7a45526bd::server:baf2efcff172a60fbc9893be6aa41664 sh -s -
+curl -sfL https://get.k3s.io | K3S_URL=https://SERVERIP:6443 K3S_TOKEN=< k3s-server-token> sh -s -
 ```
 
 Kubectl:
