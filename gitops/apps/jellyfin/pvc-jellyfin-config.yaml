@@ -12,7 +12,7 @@ metadata:
   finalizers:
   - kubernetes.io/pvc-protection
   name: jellyfin-config-pvc
-  namespace: jellyfin
+  namespace: apps-dev
 spec:
   accessModes:
   - ReadWriteOnce
