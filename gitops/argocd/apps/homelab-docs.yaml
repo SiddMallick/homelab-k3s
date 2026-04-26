@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: drawio
+  name: homelab-docs
   namespace: argocd
 
 spec:
@@ -15,11 +15,11 @@ spec:
 
     # Helm chart and certificate source
     - repoURL: https://github.com/SiddMallick/homelab-k3s
-      path: apps/drawio
+      path: gitops/apps/homelab-docs
       targetRevision: master
       helm:
         valueFiles:
-        - $values/apps/drawio/values-dev.yaml
+        - $values/gitops/apps/homelab-docs/values-dev.yaml
 
   destination:
     server: https://kubernetes.default.svc
@@ -27,6 +27,6 @@ spec:
 
 
 # # If you want to auto-sync, uncomment this
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
+  # syncPolicy:
+  #   syncOptions:
+  #     - CreateNamespace=true

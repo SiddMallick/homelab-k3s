@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homelab-apps
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: argocd-bootstrap
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/SiddMallick/homelab-k3s  
+    targetRevision: HEAD
+    path: gitops/argocd/apps
+    directory:
+      recurse: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd               # 👈 child apps get created here
+
+  # syncPolicy:
+  #   automated:
+  #     prune: true                   # delete removed apps
+  #     selfHeal: true                # fix drift automatically
+
+    syncOptions:
+      - CreateNamespace=true        # useful if child apps create new namespaces
