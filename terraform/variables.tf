@@ -17,3 +17,13 @@ variable "cloudflare_email_id" {
   description = "Cloudflare Email Address"
   sensitive   = true
 }
+
+variable "tailscale_oauth_clientid" {
+  description = "Tailscale Oauth client id"
+  sensitive   = true
+}
+
+variable "tailscale_oauth_clientSecret" {
+  description = "Tailscale Oauth client secret"
+  sensitive   = true
+}

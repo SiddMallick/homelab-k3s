@@ -55,10 +55,54 @@ resource "kubernetes_secret_v1" "cloudflare_api_key" {
 
 
 resource "kubernetes_manifest" "cluster_issuer" {
-  depends_on = [helm_release.cert_manager, kubernetes_secret_v1.cloudflare_api_key ]
+  depends_on = [helm_release.cert_manager, kubernetes_secret_v1.cloudflare_api_key]
 
   manifest = yamldecode(templatefile("${path.module}/templates/cert-manager/clusterissuer.yaml", {
     email       = var.cloudflare_email_id
     secret-name = kubernetes_secret_v1.cloudflare_api_key.metadata[0].name
   }))
+}
+
+
+# Install Tailscale Operator
+
+resource "helm_release" "tailscale_operator" {
+  name             = "tailscale-operator"
+  repository       = "https://pkgs.tailscale.com/helmcharts"
+  chart            = "tailscale-operator"
+  namespace        = "tailscale"
+  create_namespace = true
+  cleanup_on_fail  = true
+
+  set_sensitive = [
+    {
+      name  = "oauth.clientId"
+      value = var.tailscale_oauth_clientid
+    },
+    {
+      name  = "oauth.clientSecret"
+      value = var.tailscale_oauth_clientSecret
+    }
+  ]
+}
+
+
+# Install nfs subdir external
+resource "helm_release" "nfs-subdir-external-provisioner" {
+  name            = "nfs-subdir-external-provisioner"
+  repository      = "https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner"
+  chart           = "nfs-subdir-external-provisioner"
+  namespace       = "default"
+  cleanup_on_fail = true
+
+  set = [
+    {
+      name  = "nfs.path"
+      value = var.omv_nfs_share_path
+    },
+    {
+      name  = "nfs.server"
+      value = var.omv_server_ip
+    }
+  ]
 }
