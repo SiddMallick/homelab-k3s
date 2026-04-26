@@ -24,5 +24,5 @@ spec:
       prune: true                   # delete removed apps
       selfHeal: true                # fix drift automatically
 
-  syncOptions:
-    - CreateNamespace=true        # useful if child apps create new namespaces
+    syncOptions:
+      - CreateNamespace=true        # useful if child apps create new namespaces
