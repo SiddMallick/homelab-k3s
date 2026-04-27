@@ -5,3 +5,5 @@ apps/jellyfin/smb-creds.yaml
 *.tfstate.*
 *.lock.hcl
 .terraform
+infrastructure/*
+k3s_cluster_bootstrap.sh

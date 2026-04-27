@@ -190,10 +190,10 @@ Thus K3s has the following dependencies already pre-shipped with it:
 - Spegel distributed container image registry mirror
 - Host utilities (iptables, socat, etc)
 
-1. For installing k3s, if the debian machine will be used for k3s server (deb-k3s-master) node, run:
+1. For installing k3s, if the debian machine will be used for k3s server (deb-k3s-master) node (disable traefik), run:
 
 ```bash
-curl -sfL https://get.k3s.io | sh -s - server --cluster-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/16 --write-kubeconfig-mode 644
+curl -sfL https://get.k3s.io | sh -s - server --cluster-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/16 --write-kubeconfig-mode 644 --disable traefik
 ```
 
 2. Fetch master token:
@@ -205,7 +205,7 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 3. For installing k3s agent on debian agent (deb-k3s-agent) node (as well as for raspberry pi):
 
 ```bash
-curl -sfL https://get.k3s.io | K3S_URL=https://SERVERIP:6443 K3S_TOKEN=< k3s-server-token> sh -s -
+curl -sfL https://get.k3s.io | K3S_URL=https://K3S_SERVER_IP:6443 K3S_TOKEN=< server-node-token > sh -s -
 ```
 
 Kubectl:
@@ -255,9 +255,6 @@ chmod 700 get_helm.sh
 helm version
 ```
 
-### Setup values.yaml for Jellyfin
-
-
 
 ## Prometheus and Grafana stack:
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -291,3 +288,12 @@ helm install argocd argo/argo-cd -n argocd --create-namespace -f values.yaml
 Password:
 kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath="{.data.password}" | base64 -d && echo
+
+
+# Traefik installation:
+
+helm install traefik traefik/traefik \
+  --version $CHART_VERSION \
+  --values infrastructure/traefik-values.yaml \
+  --namespace traefik \
+  --create-namespace
