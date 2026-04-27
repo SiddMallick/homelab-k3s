@@ -16,7 +16,7 @@ spec:
   rules:
     - matches:
         - path:
-            type: {{ .Values.httproute.pathType | default "Prefix" }}
+            type: {{ .Values.httproute.pathType | default "PathPrefix" }}
             value: {{ .Values.httproute.path | default "/" }}
       backendRefs:
         - name: {{ .Release.Name }}

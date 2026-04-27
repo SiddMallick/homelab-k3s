@@ -50,7 +50,7 @@ httproute:
   gatewayName: traefik-gateway
   gatewayNamespace: default
   hostname: homelab-docs.siddhomelab.cc
-  pathType: Prefix
+  pathType: PathPrefix
   path: /
   port:
     number: 80

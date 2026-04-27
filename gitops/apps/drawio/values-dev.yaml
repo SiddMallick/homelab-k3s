@@ -37,7 +37,7 @@ httproute:
   gatewayName: traefik-gateway
   gatewayNamespace: default
   hostname: draw.io.siddhomelab.cc
-  pathType: Prefix
+  pathType: PathPrefix
   path: /
   port:
     number: 80
