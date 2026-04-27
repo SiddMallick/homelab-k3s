@@ -155,13 +155,13 @@ resource "kubernetes_manifest" "nfs_storage_class" {
 
 
 
-# # Apply the ArgoCD application manifest to deploy the app from gitops repo
-# resource "kubernetes_manifest" "argo_app_of_apps" {
-#     depends_on = [
-#         helm_release.argocd,
-#         helm_release.argocd,helm_release.cert_manager, helm_release.tailscale_operator, 
-#         helm_release.nfs-subdir-external-provisioner, kubernetes_manifest.certificate, kubernetes_manifest.local_storage_class, 
-#         kubernetes_manifest.nfs_storage_class, kubernetes_manifest.cluster_issuer, kubernetes_namespace_v1.dev_namespace
-#     ]
-#     manifest = yamldecode(file("${path.module}/../gitops/argocd/root-app.yaml"))
-# }
+# Apply the ArgoCD application manifest to deploy the app from gitops repo
+resource "kubernetes_manifest" "argo_app_of_apps" {
+    depends_on = [
+        helm_release.argocd,
+        helm_release.argocd,helm_release.cert_manager, helm_release.tailscale_operator, 
+        helm_release.nfs-subdir-external-provisioner, kubernetes_manifest.certificate, kubernetes_manifest.local_storage_class, 
+        kubernetes_manifest.nfs_storage_class, kubernetes_manifest.cluster_issuer, kubernetes_namespace_v1.dev_namespace
+    ]
+    manifest = yamldecode(file("${path.module}/../gitops/argocd/root-app.yaml"))
+}

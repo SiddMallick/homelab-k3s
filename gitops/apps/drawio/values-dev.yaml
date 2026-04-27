@@ -24,13 +24,20 @@ service:
   port: 80
 
 ingress:
+  enabled: false
+  # className: traefik
+  # host: draw.io.siddhomelab.cc
+  # path: /
+  # pathType: Prefix
+  # port: 80
+  # tlsSecretName: local-sidd-cc-tls
+
+httproute:
   enabled: true
-  className: traefik
-  host: draw.io.siddhomelab.cc
-  path: /
+  gatewayName: traefik-gateway
+  gatewayNamespace: default
+  hostname: draw.io.siddhomelab.cc
   pathType: Prefix
-  port: 80
-  tlsSecretName: local-sidd-cc-tls
-
-
-
+  path: /
+  port:
+    number: 80

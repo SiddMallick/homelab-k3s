@@ -180,10 +180,20 @@ config:
   docker: ""
 
 ingress:
+  enabled: false
+  # className: traefik
+  # host: homepage.siddhomelab.cc
+  # path: /
+  # pathType: Prefix
+  # port: 80
+  # tlsSecretName: local-sidd-cc-tls
+
+httproute:
   enabled: true
-  className: traefik
-  host: homepage.siddhomelab.cc
-  path: /
+  gatewayName: traefik-gateway
+  gatewayNamespace: default
+  hostname: homepage.siddhomelab.cc
   pathType: Prefix
-  port: 80
-  tlsSecretName: local-sidd-cc-tls
+  path: /
+  port:
+    number: 80

@@ -44,3 +44,6 @@ ingress:
   # pathType: Prefix
   # port: 80
   # tlsSecretName: local-sidd-cc-tls-homelab-docs
+
+httproute:
+  enabled: false
