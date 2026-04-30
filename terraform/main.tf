@@ -116,7 +116,7 @@ resource "helm_release" "tailscale_operator" {
     },
     {
       name  = "oauth.clientSecret"
-      value = var.tailscale_oauth_clientSecret
+      value = var.tailscale_oauth_client_secret
     }
   ]
 }
