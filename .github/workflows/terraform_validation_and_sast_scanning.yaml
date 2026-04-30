@@ -17,7 +17,7 @@ on:
 
 jobs:
     terraform-lint:
-        name: "Terraform Lint, Validate and Format Check"
+        name: "Terraform Lint and Validate"
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout Code
@@ -40,7 +40,7 @@ jobs:
                 terraform validate
         
     documentation-check:
-        name: "documentation check"
+        name: "Documentation Check"
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout Code
