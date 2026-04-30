@@ -56,6 +56,8 @@ jobs:
               uses: checkmarx/kics-github-action@v2.1.20
               with:
                 path: terraform/
+                # Only fail on high, medium and low severity issues, ignoring informational ones.
+                fail_on: 'high,medium,low'
                 ignore_on_exit: 'none'
                 output_path: results/
             
