@@ -17,24 +17,34 @@ on:
 
 jobs:
     terraform-lint:
-        name: "Terraform Lint"
+        name: "Terraform Lint and Validate"
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout Code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v4
               with:
                 terraform_version: "1.5.0"
             - name: Check Format
               run: terraform fmt -check -recursive
+            
+            - name: Terraform init
+              run: |
+                cd ./terraform
+                terraform init -backend=false
+
+            - name: Terraform Validate
+              run: |
+                cd ./terraform
+                terraform validate
         
     documentation-check:
-        name: "documentation check"
+        name: "Documentation Check"
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout Code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
             - name: Check README in terraform/
               run: |
                 if [ ! -f "terraform/README.md" ]; then
@@ -50,13 +60,15 @@ jobs:
             - documentation-check
         steps:
             - name: Checkout Code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
             
             - name: Run KICS Scan
               uses: checkmarx/kics-github-action@v2.1.20
               with:
                 path: terraform/
-                ignore_on_exit: false
+                # Only fail on high, medium and low severity issues, ignoring informational ones.
+                fail_on: 'high,medium,low'
+                ignore_on_exit: 'none'
                 output_path: results/
             
             - name: Upload Artifacts
