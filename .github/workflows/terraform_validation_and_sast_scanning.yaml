@@ -17,7 +17,7 @@ on:
 
 jobs:
     terraform-lint:
-        name: "Terraform Lint"
+        name: "Terraform Lint, Validate and Format Check"
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout Code
@@ -31,9 +31,9 @@ jobs:
             
             - name: Terraform init
               run: |
-                cd terraform
+                cd ./terraform
                 terraform init -backend=false
-                
+
             - name: Terraform Validate
               run: |
                 cd ./terraform
