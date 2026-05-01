@@ -1,0 +1,61 @@
+name: Validate Terraform Docs
+
+on:
+    pull_request:
+        branches: [master]
+        paths:
+            - 'terraform/**'
+    push:
+        branches: [master]
+        paths:
+            - 'terraform/**'
+jobs:
+    documentation-check:
+        name: "Check Terraform Documentation"
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v6
+            
+            - name: Install terraform-docs
+              run: |
+                curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.22.0/terraform-docs-v0.22.0-$(uname)-amd64.tar.gz
+                tar -xzf terraform-docs.tar.gz
+                sudo chmod +x terraform-docs
+                sudo mv terraform-docs /usr/local/bin/terraform-docs
+            
+            - name: Check Documentation
+              run: |
+                cd ./terraform
+                if [ ! -f .terraform-docs.yml ]; then
+                    echo "❌ No .terraform-docs.yml file found. Please create one to specify documentation generation settings."
+                    exit 1
+                fi
+
+                # Generate documentation to a temporary file for comparison
+                terraform-docs . --config .terraform-docs.yml --output-file README.md.generated
+
+                # Check if README.md exists and compare
+                if [ ! -f README.md ]; then
+                    echo "❌ README.md does not exist. Generated documentation:"
+                    cat README.md.generated
+                    
+                    echo ""
+                    echo "Add this to a README.md and commit."
+                    exit 1
+                fi
+
+                # Compare generated docs with existing README.md
+                if ! diff -q README.md README.md.generated > /dev/null ; then
+                    echo "❌ README.md is out of sync with terraform configuration."
+                    echo ""
+                    echo "Expected changes:"
+                    diff -u README.md README.md.generated || true
+                    echo ""
+                    echo "Please update README.md by running 'terraform-docs . --config .terraform-docs.yml --output-file README.md' in the terraform directory."
+                    echo "Not failing this check to avoid blocking PRs"
+                else
+                    echo "✅ README.md is up to date with terraform configuration."
+                fi
+
+                rm README.md.generated
