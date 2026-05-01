@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 # Terraform K3s Cluster Bootstrap
 
 This terraform module automates the bootstrapping of a K3s Kubernetes cluster with essential platform components and infrastructure services.
@@ -51,28 +50,3 @@ Each app has Helm charts with environment-specific values (dev/prod).
 - Environment variables or terraform.tfvars with:
   - `cloudflare_api_key`
   - `cloudflare_email_id`
-
-## Providers
-
-| Name | Version |
-| ---- | ------- |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.1.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.1.0 |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_cloudflare_api_key"></a> [cloudflare\_api\_key](#input\_cloudflare\_api\_key) | Cloudflare API Key | `string` | n/a | yes |
-| <a name="input_cloudflare_email_id"></a> [cloudflare\_email\_id](#input\_cloudflare\_email\_id) | Cloudflare Email Address | `string` | n/a | yes |
-| <a name="input_omv_nfs_share_path"></a> [omv\_nfs\_share\_path](#input\_omv\_nfs\_share\_path) | OpenMediaVault NFS Share Path | `string` | `"/export/media-nfs-jellyfin"` | no |
-| <a name="input_omv_server_ip"></a> [omv\_server\_ip](#input\_omv\_server\_ip) | OpenMediaVault server IP | `string` | n/a | yes |
-| <a name="input_tailscale_oauth_client_secret"></a> [tailscale\_oauth\_client\_secret](#input\_tailscale\_oauth\_client\_secret) | Tailscale Oauth client secret | `string` | n/a | yes |
-| <a name="input_tailscale_oauth_clientid"></a> [tailscale\_oauth\_clientid](#input\_tailscale\_oauth\_clientid) | Tailscale Oauth client id | `string` | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-| ---- | ----------- |
-| <a name="output_argocd_admin_password"></a> [argocd\_admin\_password](#output\_argocd\_admin\_password) | The initial password for the ArgoCD admin user |
-<!-- END_TF_DOCS -->

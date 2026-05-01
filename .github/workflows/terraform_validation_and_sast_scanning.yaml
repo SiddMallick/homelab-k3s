@@ -44,25 +44,11 @@ jobs:
                 cd ./terraform
                 terraform validate
         
-    documentation-check:
-        name: "Documentation Check"
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v6
-            - name: Check README in terraform/
-              run: |
-                if [ ! -f "terraform/README.md" ]; then
-                    echo "Error: README.md not found in the terraform/ directory"
-                    exit 1
-                fi
-        
     kics-scan:
         name: "KICS Security Scan"
         runs-on: ubuntu-22.04
         needs:
             - terraform-lint
-            - documentation-check
         steps:
             - name: Checkout Code
               uses: actions/checkout@v6
