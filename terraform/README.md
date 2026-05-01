@@ -56,8 +56,8 @@ Each app has Helm charts with environment-specific values (dev/prod).
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.1.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.1.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 3.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 3.0 |
 
 ## Inputs
 
