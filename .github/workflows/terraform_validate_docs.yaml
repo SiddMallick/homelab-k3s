@@ -46,7 +46,7 @@ jobs:
                 fi
 
                 # Compare generated docs with existing README.md
-                if [ ! diff -q README.md README.md.generated > /dev/null ]; then
+                if ! diff -q README.md README.md.generated > /dev/null ; then
                     echo "❌ README.md is out of sync with terraform configuration."
                     echo ""
                     echo "Expected changes:"
