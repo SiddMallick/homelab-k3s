@@ -4,6 +4,12 @@ resource "kubernetes_namespace_v1" "dev_namespace" {
   }
 }
 
+resource "kubernetes_namespace_v1" "prod_namespace" {
+  metadata {
+    name = "apps-prod"
+  }
+}
+
 # Install cert-manager
 
 resource "helm_release" "cert_manager" {

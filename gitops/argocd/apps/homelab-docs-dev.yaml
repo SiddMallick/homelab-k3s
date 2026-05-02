@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: homelab-docs
+  name: homelab-docs-dev
   namespace: argocd
 
 spec:
