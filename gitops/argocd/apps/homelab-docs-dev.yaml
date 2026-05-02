@@ -3,6 +3,15 @@ kind: Application
 metadata:
   name: homelab-docs-dev
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: docs=msiddhartha1600/docusaurus-homelab-docs
+    argocd-image-updater.argoproj.io/docs.tag-pattern: "^[a-f0-9]{10,40}"
+    argocd-image-updater.argoproj.io/docs.update-strategy: latest
+    argocd-image-updater.argoproj.io/docs.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/docs.helm.image-tag: image.tag
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: master
+    argocd-image-updater.argoproj.io/write-back-target: "gitops/apps/homelab-docs/values-dev.yaml"
 
 spec:
   project: default
