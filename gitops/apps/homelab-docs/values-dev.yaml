@@ -49,7 +49,7 @@ httproute:
   enabled: true
   gatewayName: traefik-gateway
   gatewayNamespace: default
-  hostname: homelab-docs.dev.siddhomelab.cc
+  hostname: homelab-docs-dev.siddhomelab.cc
   pathType: PathPrefix
   path: /
   port:
