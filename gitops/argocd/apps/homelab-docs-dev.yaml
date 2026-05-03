@@ -25,17 +25,24 @@ metadata:
 
 spec:
   project: default
-  sources:
-    - repoURL: git@github.com:SiddMallick/homelab-k3s.git
-      targetRevision: master
-      ref: values 
+  source:
+    repoURL: git@github.com:SiddMallick/homelab-k3s.git
+    path: gitops/apps/homelab-docs
+    targetRevision: master
+    helm:
+      valueFiles:
+        - values-dev.yaml
+  # sources:
+    # - repoURL: git@github.com:SiddMallick/homelab-k3s.git
+    #   targetRevision: master
+    #   ref: values 
 
-    - repoURL: git@github.com:SiddMallick/homelab-k3s.git
-      path: gitops/apps/homelab-docs
-      targetRevision: master
-      helm:
-        valueFiles:
-        - $values/gitops/apps/homelab-docs/values-dev.yaml
+    # - repoURL: git@github.com:SiddMallick/homelab-k3s.git
+    #   path: gitops/apps/homelab-docs
+    #   targetRevision: master
+    #   helm:
+    #     valueFiles:
+    #     - $values/gitops/apps/homelab-docs/values-dev.yaml
 
   destination:
     server: https://kubernetes.default.svc

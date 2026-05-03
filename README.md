@@ -297,3 +297,7 @@ helm install traefik traefik/traefik \
   --values infrastructure/traefik-values.yaml \
   --namespace traefik \
   --create-namespace
+
+# Argocd image updater
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/v0.12.2/manifests/install.yaml
