@@ -1,0 +1,8 @@
+helm:
+  parameters:
+  - name: image.repository
+    value: msiddhartha1600/docusaurus-homelab-docs
+    forcestring: true
+  - name: image.tag
+    value: 9823243f929ebae910898a4e641708c2b27778e9
+    forcestring: true
