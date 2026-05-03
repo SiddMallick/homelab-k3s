@@ -301,3 +301,7 @@ helm install traefik traefik/traefik \
 # Argocd image updater
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/v0.12.2/manifests/install.yaml
+
+To watch logs:
+
+kubectl logs -n argocd -l app.kubernetes.io/name=argocd-image-updater -f

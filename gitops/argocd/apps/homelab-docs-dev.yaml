@@ -19,7 +19,7 @@ metadata:
     argocd-image-updater.argoproj.io/write-back-repository: git
     argocd-image-updater.argoproj.io/git-branch: master
     # Note: This is specifically for Kustomize or Helm value updates
-    argocd-image-updater.argoproj.io/write-back-target: "file:gitops/apps/homelab-docs/values-dev.yaml"
+    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:/gitops/apps/homelab-docs/values-dev.yaml"
   
   finalizers:
     - resources-finalizer.argocd.argoproj.io
