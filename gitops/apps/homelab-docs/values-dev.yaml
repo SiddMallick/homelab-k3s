@@ -1,10 +1,10 @@
 environment: "dev-homelab"
 
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: msiddhartha1600/docusaurus-homelab-docs
-  tag: 8d0ea85af2766bebbfef2491377058efc4931da2
+  tag: a386d7a62e7b20337383caef47df534153583992
   pullPolicy: IfNotPresent
 
 securityContext: {}
@@ -49,7 +49,7 @@ httproute:
   enabled: true
   gatewayName: traefik-gateway
   gatewayNamespace: default
-  hostname: homelab-docs.siddhomelab.cc
+  hostname: homelab-docs.dev.siddhomelab.cc
   pathType: PathPrefix
   path: /
   port:
