@@ -4,5 +4,5 @@ helm:
     value: msiddhartha1600/docusaurus-homelab-docs
     forcestring: true
   - name: image.tag
-    value: a386d7a62e7b20337383caef47df534153583992
+    value: 7acf011848a0615758e6692d2bcf94ba37d4f79f
     forcestring: true
