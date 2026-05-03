@@ -4,25 +4,32 @@ metadata:
   name: homelab-docs-dev
   namespace: argocd
   annotations:
+    # Use the alias 'docs'
     argocd-image-updater.argoproj.io/image-list: docs=msiddhartha1600/docusaurus-homelab-docs
-    argocd-image-updater.argoproj.io/docs.tag-pattern: "^[a-f0-9]{7,40}$"
+    argocd-image-updater.argoproj.io/docs.allow-tags: regexp:^[a-f0-9]{7,40}$
     argocd-image-updater.argoproj.io/docs.update-strategy: latest
+    
+    # Mapping to your Helm values
     argocd-image-updater.argoproj.io/docs.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/docs.helm.image-tag: image.tag
-    argocd-image-updater.argoproj.io/write-back-method: git
+    
+    # Corrected Write-Back Logic
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-homelab-repo
+    # You MUST add this line because you have multiple sources
+    argocd-image-updater.argoproj.io/write-back-repository: git
     argocd-image-updater.argoproj.io/git-branch: master
     argocd-image-updater.argoproj.io/write-back-target: "gitops/apps/homelab-docs/values-dev.yaml"
+  
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 
 spec:
   project: default
-
   sources:
-    # Values repo
     - repoURL: git@github.com:SiddMallick/homelab-k3s.git
       targetRevision: master
-      ref: values #Used as alias in the helm chart source
+      ref: values 
 
-    # Helm chart and certificate source
     - repoURL: git@github.com:SiddMallick/homelab-k3s.git
       path: gitops/apps/homelab-docs
       targetRevision: master
@@ -38,9 +45,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
-
-# # If you want to auto-sync, uncomment this
-  # syncPolicy:
-  #   syncOptions:
-  #     - CreateNamespace=true
-
+    syncOptions:
+      - CreateNamespace=true
