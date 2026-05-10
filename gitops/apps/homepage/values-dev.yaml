@@ -127,7 +127,7 @@ config:
             description: Homelab Documentation
         - DrawIO:
             icon: draw-io.png
-            href: https://draw.io.siddhomelab.cc
+            href: https://draw-io.siddhomelab.cc
             description: Self hosted Draw IO
     
     - Platforms:
