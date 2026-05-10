@@ -10,3 +10,7 @@ k3s_cluster_bootstrap.sh
 argocd-image-updater
 argocd-image-updater.pub
 argocd-image-updater-git-secret.yaml
+*.key
+*.csr
+*-csr.yaml
+*.crt

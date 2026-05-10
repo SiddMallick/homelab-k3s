@@ -240,6 +240,63 @@ Here, jellyfin is chosen over plex as jellyfin is better suited for kubernetes d
 For installing jellyfin, we first need to install helm. We can do this from our bastion host (laptop or desktop you are using to access proxmox and other stuff) or you can ssh into the k3s master node to install and manage helm packages.
 
 
+# Create developer authentication and authorization:
+
+1. Developer creates a SSL key and then creates a CSR using openssl command:
+
+```bash
+openssl genrsa -out dev1.key 2048
+openssl req -new -key dev1.key -out dev1.csr -subj "/CN=dev1/O=dev-team"
+```
+
+2. Create a CSR object in kubernetes after developer has sent the CSR to the admin:
+
+```bash
+cat dev1.csr | base64 | tr -d "\n"
+```
+
+The above command provides the CSR in base64.
+
+Copy and paste it in spec.request in a CSR k8s definition and run kubectl apply to apply the CSR.
+The CSR should be in pending state. Admin approves the CSR by running:
+```bash
+kubectl certificates approve dev1-csr
+```
+
+3. Extract the signed cert by kube-apiserver-client and send the .crt file to the developer:
+```bash
+kubectl get csr dev1-csr -o jsonpath='{.status.certificate}' | base64 -d > dev1.crt
+```
+4. After the dev1.crt is sent to dev1 user, dev1 should now have dev1.key and dev1.crt.
+Create context in kubectl and add these creds:
+
+```bash
+kubectl config set-credentials dev1 --client-certificate=dev1.crt --client-key=dev1.key
+```
+
+Get cluster name and create a context in kubectl:
+```bash
+kubectl config get-clusters
+
+kubectl config set-context dev1-context --cluster=default --user=dev1 --namespace=apps-dev
+```
+5. Dev1 start using the context:
+
+```bash
+kubectl config get-contexts
+
+kubectl config set-context dev1-context
+```
+
+6. By default, everything will be unauthorized for the dev1 user as no Role or Rolebinding is created. See role-developer.yaml to know how a Role and a Rolebinding is created for the specific user or group.Apply the role-developer.yaml as an admin and now dev1 can start using the resources withing apps-dev or the namespace it was assigned to.
+
+```bash
+# As admin
+kubectl apply -f role-developer.yaml
+```
+
+
+
 ### Install Helm
 
 To install helm:

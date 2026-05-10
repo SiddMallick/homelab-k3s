@@ -36,7 +36,7 @@ httproute:
   enabled: true
   gatewayName: traefik-gateway
   gatewayNamespace: default
-  hostname: draw.io.siddhomelab.cc
+  hostname: draw-io.siddhomelab.cc
   pathType: PathPrefix
   path: /
   port:
