@@ -1,5 +1,13 @@
 # HomeLab: K3s
 
+## Architecture Diagram
+
+<img src="img/homelab-arch.png" alt="Architecture Diagram" width="900">
+
+## DevOps Workflow
+
+<img src="img/devops_project_diagram.png" alt="DevOps Workflow" width="900">
+
 ## Hardware used
 
 1. Lenovo ThinkCentre : i3 (4 Cores), 8Gb RAM, 128 GB SSD (SATA)
@@ -313,52 +321,100 @@ helm version
 ```
 
 
-## Prometheus and Grafana stack:
+## Prometheus and Grafana Stack
+
+Install the kube-prometheus-stack for monitoring and observability:
+
+```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm update
-helm install monitoring --namespace monitoring --create-namespace prometheus-community/kube-prometheus-stack -f prometheus-grafana-values.yaml
+helm repo update
+helm install monitoring \
+  --namespace monitoring \
+  --create-namespace \
+  prometheus-community/kube-prometheus-stack \
+  -f prometheus-grafana-values.yaml
+```
 
+To uninstall:
+
+```bash
 helm uninstall monitoring -n monitoring
+```
 
+Retrieve the Grafana admin password:
 
-grafana login creds:
+```bash
+kubectl get secret --namespace monitoring \
+  -l app.kubernetes.io/component=admin-secret \
+  -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+```
 
-kubectl get secret --namespace monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+## Certificate Manager and Cloudflare DNS
 
+Create a secret for Cloudflare API authentication:
 
-## Certificate Manager and Cloudflare DNS setup
-
+```bash
 kubectl create secret generic cloudflare-api-token-secret \
   --from-literal=api-token=YOUR_API_TOKEN \
   -n cert-manager
+```
 
+Replace `YOUR_API_TOKEN` with your actual Cloudflare API token.
 
+## NFS External Provisioner
 
-# nfs-external-provisioner
-helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
-    --set nfs.server=nfs-ip \
-    --set nfs.path=/export/media-nfs-jellyfin
+Install the NFS subdir external provisioner for dynamic PVC provisioning:
 
-# ArgoCD install:
-helm install argocd argo/argo-cd -n argocd --create-namespace -f values.yaml
+```bash
+helm install nfs-subdir-external-provisioner \
+  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+  --set nfs.server=<NFS_SERVER_IP> \
+  --set nfs.path=/export/media-nfs-jellyfin
+```
 
-Password:
+Replace `<NFS_SERVER_IP>` with your OpenMediaVault NAS IP address.
+
+## ArgoCD Installation
+
+Install ArgoCD for GitOps-based deployment management:
+
+```bash
+helm install argocd argo/argo-cd \
+  -n argocd \
+  --create-namespace \
+  -f values.yaml
+```
+
+Retrieve the initial admin password:
+
+```bash
 kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath="{.data.password}" | base64 -d && echo
+```
 
+## Traefik Installation
 
-# Traefik installation:
+Install Traefik ingress controller:
 
+```bash
 helm install traefik traefik/traefik \
   --version $CHART_VERSION \
   --values infrastructure/traefik-values.yaml \
   --namespace traefik \
   --create-namespace
+```
 
-# Argocd image updater
+## ArgoCD Image Updater
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/v0.12.2/manifests/install.yaml
+Install ArgoCD Image Updater to automate container image updates:
 
-To watch logs:
+```bash
+kubectl apply -n argocd \
+  -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/v0.12.2/manifests/install.yaml
+```
 
+Monitor the image updater logs:
+
+```bash
 kubectl logs -n argocd -l app.kubernetes.io/name=argocd-image-updater -f
+```
