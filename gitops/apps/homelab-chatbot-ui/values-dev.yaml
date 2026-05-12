@@ -9,6 +9,9 @@ image:
 
 securityContext: {}
 
+env:
+  chatbotBackend: http://192.168.0.173
+
 resources:
   requests:
     cpu: "100m"
