@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Release.Namespace | default "default" }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Release.Name }}
     environment: {{ .Values.environment | default "dev" }}
     app.kubernetes.io/name: {{ .Release.Name }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}
       environment: {{ .Values.environment | default "dev" }}
       app.kubernetes.io/name: {{ .Release.Name }}
-  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}
-        image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
 
         {{- with .Values.securityContext }}
@@ -31,14 +31,6 @@ spec:
             {{- toYaml . | nindent 12 }}
         {{- end }}
 
-        resources:
-          requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
-          limits:
-            cpu: {{ .Values.resources.limits.cpu }}
-            memory: {{ .Values.resources.limits.memory }}
-            
         {{- with .Values.livenessProbe  }}
         livenessProbe:
           {{- toYaml . | nindent 12 }}
@@ -52,7 +44,20 @@ spec:
         ports:
         - containerPort: {{ .Values.containerPort }}
 
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+        env:
+            - name: CHATBOT_BACKEND
+              value: {{ .Values.chatbotBackend | default "" }}
+
       {{- with .Values.nodeSelector  }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+
