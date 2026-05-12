@@ -53,7 +53,7 @@ spec:
             memory: {{ .Values.resources.limits.memory }}
         env:
             - name: CHATBOT_BACKEND
-              value: {{ .Values.chatbotBackend | default "" }}
+              value: {{ .Values.env.chatbotBackend | default "" }}
 
       {{- with .Values.nodeSelector  }}
       nodeSelector:
