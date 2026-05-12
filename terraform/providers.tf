@@ -7,6 +7,6 @@ provider "kubernetes" {
 provider "helm" {
   kubernetes = {
     config_path    = "~/.kube/config"
-    config_context = "default"
+    config_context = "proxmox-k3s"
   }
 }
