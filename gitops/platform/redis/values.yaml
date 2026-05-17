@@ -19,14 +19,22 @@ resources:
 livenessProbe:
   tcpSocket:
     port: 6379
-  initialDelay: 10
+
+  initialDelaySeconds: 10
   periodSeconds: 10
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 3
 
 readinessProbe:
   tcpSocket:
     port: 6379
-  initialDelay: 10
-  periodSeconds: 10
+
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 3
 
 persistence:
   storageClassName: local-path
