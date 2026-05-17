@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ollama
+  name: redis
   namespace: argocd
 
 spec:
@@ -15,11 +15,11 @@ spec:
 
     # Helm chart and certificate source
     - repoURL: https://github.com/SiddMallick/homelab-k3s
-      path: gitops/platform/ollama
+      path: gitops/platform/redis
       targetRevision: master
       helm:
         valueFiles:
-        - $values/gitops/platform/ollama/values.yaml
+        - $values/gitops/platform/redis/values.yaml
 
   destination:
     name: omen-k3s

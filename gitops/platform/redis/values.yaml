@@ -1,0 +1,37 @@
+image:
+  repository: redis
+  tag: 7-alpine
+  pullPolicy: IfNotPresent
+
+secretRefName: redis-secret # Must create secret manually
+secretRefKey: redis-password
+
+containerPort: 6379
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+livenessProbe:
+  tcpSocket:
+    port: 6379
+  initialDelay: 10
+  periodSeconds: 10
+
+readinessProbe:
+  tcpSocket:
+    port: 6379
+  initialDelay: 10
+  periodSeconds: 10
+
+persistence:
+  storageClassName: local-path
+  storageSize: 1Gi
+
+service:
+  port: 6379
+  targetPort: 6379
