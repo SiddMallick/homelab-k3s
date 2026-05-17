@@ -419,6 +419,27 @@ Monitor the image updater logs:
 kubectl logs -n argocd -l app.kubernetes.io/name=argocd-image-updater -f
 ```
 
+You will need to add public key to your gitops repo deploy keys.
+Then you need to add the private key as a secret like:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-homelab-repo
+  namespace: argocd
+  labels:
+    # This label is critical for ArgoCD to recognize the secret
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: git@github.com:repo/name
+  # Your private key (the entire block including BEGIN/END lines)
+  sshPrivateKey: |
+    < INSERT PRIVATE KEY HERE >
+```
+
+
 ## ArgoCD multi-cluster:
 
 1. Install argocd CLI
