@@ -11,10 +11,10 @@ grafana:
     hosts:
       - grafana.siddhomelab.cc
     path: /
-    tls:
-      - secretName: local-sidd-cc-tls-grafana-prometheus
-        hosts:
-          - grafana.siddhomelab.cc
+    # tls:
+    #   - secretName: local-sidd-cc-tls-grafana-prometheus
+    #     hosts:
+    #       - grafana.siddhomelab.cc
   
   resources:
     limits:
@@ -35,10 +35,10 @@ prometheus:
       - prometheus.siddhomelab.cc
     path: /
     pathType: Prefix
-    tls:
-      - secretName: local-sidd-cc-tls-grafana-prometheus
-        hosts:
-          - prometheus.siddhomelab.cc
+    # tls:
+    #   - secretName: local-sidd-cc-tls-grafana-prometheus
+    #     hosts:
+    #       - prometheus.siddhomelab.cc
   
   resources:
     limits:

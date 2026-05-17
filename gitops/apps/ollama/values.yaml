@@ -1,0 +1,18 @@
+image:
+  repository: ollama/ollama
+  tag: 0.17.8-rc4
+  pullPolicy: IfNotPresent
+
+containerPort: 11434
+
+resources:
+  requests:
+    cpu: "800m"
+    memory: "3Gi"
+  limits:
+    cpu: "1000m"
+    memory: "3Gi"
+
+service:
+  port: 11434
+  targetPort: 11434

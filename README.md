@@ -418,3 +418,21 @@ Monitor the image updater logs:
 ```bash
 kubectl logs -n argocd -l app.kubernetes.io/name=argocd-image-updater -f
 ```
+
+## ArgoCD multi-cluster:
+
+1. Install argocd CLI
+2. Change context first in kubectl to proxmox-k3s (Where argocd is installed)
+3. Login to arogcd cluster
+
+```bash
+argocd login argocd.siddhomelab.cc \
+  --username admin \
+  --password '< PASSWORD >' \
+  --grpc-web \           
+  --insecure
+```
+4. Add cluster to Argocd: 
+
+argocd cluster add omen-k3s --name omen-k3s
+
