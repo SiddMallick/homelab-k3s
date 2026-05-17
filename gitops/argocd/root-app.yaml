@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/SiddMallick/homelab-k3s  
     targetRevision: HEAD
-    path: gitops/argocd/apps
+    path: gitops/clusters
     directory:
       recurse: true
 
