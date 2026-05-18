@@ -1,33 +1,33 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: chatbot-api
-  namespace: argocd
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: chatbot-api
+#   namespace: argocd
 
-spec:
-  project: default
+# spec:
+#   project: default
 
-  sources:
-    # Values repo
-    - repoURL: https://github.com/SiddMallick/homelab-k3s
-      targetRevision: master
-      ref: values #Used as alias in the helm chart source
+#   sources:
+#     # Values repo
+#     - repoURL: https://github.com/SiddMallick/homelab-k3s
+#       targetRevision: master
+#       ref: values #Used as alias in the helm chart source
 
-    # Helm chart and certificate source
-    - repoURL: https://github.com/SiddMallick/homelab-k3s
-      path: gitops/apps/homelab-chatbot-api
-      targetRevision: master
-      helm:
-        valueFiles:
-        - $values/gitops/apps/homelab-chatbot-api/values.yaml
+#     # Helm chart and certificate source
+#     - repoURL: https://github.com/SiddMallick/homelab-k3s
+#       path: gitops/apps/homelab-chatbot-api
+#       targetRevision: master
+#       helm:
+#         valueFiles:
+#         - $values/gitops/apps/homelab-chatbot-api/values.yaml
 
-  destination:
-    name: omen-k3s
-    namespace: apps-dev
+#   destination:
+#     name: omen-k3s
+#     namespace: apps-dev
 
 
-# # If you want to auto-sync, uncomment this
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# # # If you want to auto-sync, uncomment this
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true

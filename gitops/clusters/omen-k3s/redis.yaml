@@ -1,33 +1,33 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: redis
-  namespace: argocd
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: redis
+#   namespace: argocd
 
-spec:
-  project: default
+# spec:
+#   project: default
 
-  sources:
-    # Values repo
-    - repoURL: https://github.com/SiddMallick/homelab-k3s
-      targetRevision: master
-      ref: values #Used as alias in the helm chart source
+#   sources:
+#     # Values repo
+#     - repoURL: https://github.com/SiddMallick/homelab-k3s
+#       targetRevision: master
+#       ref: values #Used as alias in the helm chart source
 
-    # Helm chart and certificate source
-    - repoURL: https://github.com/SiddMallick/homelab-k3s
-      path: gitops/platform/redis
-      targetRevision: master
-      helm:
-        valueFiles:
-        - $values/gitops/platform/redis/values.yaml
+#     # Helm chart and certificate source
+#     - repoURL: https://github.com/SiddMallick/homelab-k3s
+#       path: gitops/platform/redis
+#       targetRevision: master
+#       helm:
+#         valueFiles:
+#         - $values/gitops/platform/redis/values.yaml
 
-  destination:
-    name: omen-k3s
-    namespace: assets
+#   destination:
+#     name: omen-k3s
+#     namespace: assets
 
 
-# # If you want to auto-sync, uncomment this
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# # # If you want to auto-sync, uncomment this
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
