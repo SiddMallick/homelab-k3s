@@ -1,0 +1,33 @@
+image:
+  repository: msiddhartha1600/chat-api
+  tag: 2.4-test
+  pullPolicy: IfNotPresent
+
+env:
+  ollamaEndpoint: "http://ollama.assets.svc.cluster.local:11434/api/generate"
+  ollamaModel: qwen2.5:0.5b
+  redisEndpoint: "redis.assets.svc.cluster.local"
+  redisSecretName: redis-secret #Should be deployed in the same namespace
+  redisSecretKey: redis-password
+
+containerPort: 8000
+
+resources:
+  requests:
+    cpu: 150m
+    memory: 100Mi
+  limits:
+    cpu: 200m
+    memory: 150Mi
+
+service:
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: false
+  className: traefik
+  path: /
+  pathType: Prefix
+  port: 80
+  # tlsSecretName: local-sidd-cc-tls

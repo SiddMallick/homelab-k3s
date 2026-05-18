@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: OLLAMA
+            value: {{ .Values.env.ollamaEndpoint }}
+          - name: OLLAMA_MODEL
+            value: {{ .Values.env.ollamaModel }}
+          - name: REDIS_HOST
+            value: {{ .Values.env.redisEndpoint }}
+          - name: REDIS_PASS
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.env.redisSecretName }}
+                key: {{ .Values.env.redisSecretKey }}
+
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
