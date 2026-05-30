@@ -17,14 +17,14 @@ resources:
     cpu: "100m"
     memory: "100Mi"
 
-livenessProbe: {}
-  # tcpSocket:
-  #   port: 80
-  # initialDelaySeconds: 5
-  # timeoutSeconds: 5
-  # successThreshold: 1
-  # failureThreshold: 3
-  # periodSeconds: 60
+livenessProbe:
+  tcpSocket:
+    port: 80
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+  periodSeconds: 60
 
 readinessProbe: {}
 
