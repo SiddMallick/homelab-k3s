@@ -21,5 +21,23 @@ spec:
       backendRefs:
         - name: {{ .Release.Name }}
           port: {{ .Values.httproute.port.number }}
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: {{ print .Release.Name "-ratelimit" }}
+
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: {{ print .Release.Name "-latency-circuit-breaker" }}
+
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: {{ print .Release.Name "-ip-allow-list" }}
 
 {{- end }}
