@@ -26,7 +26,7 @@ spec:
           extensionRef:
             group: traefik.io
             kind: Middleware
-            name: {{ print .Release.Name "-ratelimit" }}
+            name: {{ .Release.Name }}
 
         # - type: ExtensionRef
         #   extensionRef:
