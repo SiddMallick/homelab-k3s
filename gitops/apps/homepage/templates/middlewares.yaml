@@ -58,18 +58,7 @@ spec:
       directives:
         - SecDefaultAction "phase:1,log,auditlog,deny,status:403"
         - SecDefaultAction "phase:2,log,auditlog,deny,status:403"
-
-        - SecAction "id:900110,phase:1,pass,t:none,nolog,setvar:tx.inbound_anomaly_score_threshold=5,setvar:tx.outbound_anomaly_score_threshold=4"
-
-        - Include @owasp_crs/REQUEST-901-INITIALIZATION.conf
-        - Include @owasp_crs/REQUEST-913-SCANNER-DETECTION.conf
-        - Include @owasp_crs/REQUEST-920-PROTOCOL-ENFORCEMENT.conf
-        - Include @owasp_crs/REQUEST-921-PROTOCOL-ATTACK.conf
-        - Include @owasp_crs/REQUEST-930-APPLICATION-ATTACK-LFI.conf
-        - Include @owasp_crs/REQUEST-931-APPLICATION-ATTACK-RFI.conf
-        - Include @owasp_crs/REQUEST-932-APPLICATION-ATTACK-RCE.conf
-        - Include @owasp_crs/REQUEST-933-APPLICATION-ATTACK-PHP.conf
-        - Include @owasp_crs/REQUEST-941-APPLICATION-ATTACK-XSS.conf
-        - Include @owasp_crs/REQUEST-942-APPLICATION-ATTACK-SQLI.conf
-        - Include @owasp_crs/REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION.conf
+        - SecAction "id:900110, phase:1, pass, t:none, nolog, setvar:tx.inbound_anomaly_score_threshold=5, setvar:tx.outbound_anomaly_score_threshold=4"
+        - SecAction "id:900200, phase:1, pass, t:none, nolog, setvar:'tx.allowed_methods=GET'"
+        - Include @owasp_crs/REQUEST-911-METHOD-ENFORCEMENT.conf
         - Include @owasp_crs/REQUEST-949-BLOCKING-EVALUATION.conf
