@@ -14,3 +14,5 @@ argocd-image-updater-git-secret.yaml
 *.csr
 *-csr.yaml
 *.crt
+
+authe*
