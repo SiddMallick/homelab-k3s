@@ -34,10 +34,10 @@ spec:
             kind: Middleware
             name: {{ print .Release.Name "-latency-circuit-breaker" }}
 
-        - type: ExtensionRef
-          extensionRef:
-            group: traefik.io
-            kind: Middleware
-            name: {{ print .Release.Name "-waf-crs" }}
+        # - type: ExtensionRef
+        #   extensionRef:
+        #     group: traefik.io
+        #     kind: Middleware
+        #     name: {{ print .Release.Name "-waf-crs" }}
 
 {{- end }}
