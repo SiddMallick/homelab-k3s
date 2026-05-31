@@ -199,8 +199,8 @@ httproute:
     number: 80
   
   rateLimit:
-    average: 20
-    burst: 30
+    average: 5
+    burst: 10
 
 
 nodeSelector:
