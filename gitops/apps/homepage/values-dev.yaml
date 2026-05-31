@@ -197,3 +197,7 @@ httproute:
   path: /
   port:
     number: 80
+
+
+nodeSelector:
+  kubernetes.io/hostname: deb-k3s-agent
