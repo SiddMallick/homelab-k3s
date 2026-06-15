@@ -20,9 +20,9 @@ spec:
                 name: {{ .Release.Name }}
                 port:
                   number: {{ .Values.ingress.port }}
-  tls:
-    - hosts:
-        - {{ .Values.ingress.host }}
-      secretName: {{ .Values.ingress.tlsSecretName }}
+  # tls:
+  #   - hosts:
+  #       - {{ .Values.ingress.host }}
+  #     secretName: {{ .Values.ingress.tlsSecretName }}
 
 {{- end }}
