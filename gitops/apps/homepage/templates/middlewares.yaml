@@ -1,48 +1,48 @@
-{{- if .Values.httproute.enabled }}
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-    name: {{ print .Release.Name "-ratelimit" }}
-    namespace: {{ .Release.Namespace }}
-spec:
-    rateLimit:
-        average: {{ .Values.httproute.rateLimit.average | default 100 }}
-        burst: {{ .Values.httproute.rateLimit.burst | default 50 }}
+# {{- if .Values.httproute.enabled }}
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#     name: {{ print .Release.Name "-ratelimit" }}
+#     namespace: {{ .Release.Namespace }}
+# spec:
+#     rateLimit:
+#         average: {{ .Values.httproute.rateLimit.average | default 100 }}
+#         burst: {{ .Values.httproute.rateLimit.burst | default 50 }}
 
-{{- end }}
+# {{- end }}
 
----
+# ---
 
-{{- if .Values.httproute.enabled }}
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-    name: {{ print .Release.Name "-latency-circuit-breaker" }}
-    namespace: {{ .Release.Namespace }}
-spec:
-    circuitBreaker:
-        expression: LatencyAtQuantileMS(95.0) > 2000
-        checkPeriod: 1s
-        fallbackDuration: 20s
-        recoveryDuration: 20s
-{{- end }}
+# {{- if .Values.httproute.enabled }}
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#     name: {{ print .Release.Name "-latency-circuit-breaker" }}
+#     namespace: {{ .Release.Namespace }}
+# spec:
+#     circuitBreaker:
+#         expression: LatencyAtQuantileMS(95.0) > 2000
+#         checkPeriod: 1s
+#         fallbackDuration: 20s
+#         recoveryDuration: 20s
+# {{- end }}
 
 
----
+# ---
 
-{{- if .Values.httproute.enabled }}
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-    name: {{ print .Release.Name "-ip-allow-list" }}
-    namespace: {{ .Release.Namespace }}
-spec:
-  ipAllowList:
-    sourceRange:
-      - 127.0.0.1/32
-      - 192.168.0.0/24
-      - 192.168.1.0/24
-{{- end }}
+# {{- if .Values.httproute.enabled }}
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#     name: {{ print .Release.Name "-ip-allow-list" }}
+#     namespace: {{ .Release.Namespace }}
+# spec:
+#   ipAllowList:
+#     sourceRange:
+#       - 127.0.0.1/32
+#       - 192.168.0.0/24
+#       - 192.168.1.0/24
+# {{- end }}
 
 # ---
 
