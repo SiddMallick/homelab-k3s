@@ -181,26 +181,26 @@ config:
 
 ingress:
   enabled: false
-  # className: traefik
-  # host: homepage.siddhomelab.cc
-  # path: /
-  # pathType: Prefix
-  # port: 80
+  className: traefik
+  host: homepage.siddhomelab.cc
+  path: /
+  pathType: Prefix
+  port: 80
   # tlsSecretName: local-sidd-cc-tls
 
-httproute:
-  enabled: true
-  gatewayName: traefik-gateway
-  gatewayNamespace: default
-  hostname: homepage.siddhomelab.cc
-  pathType: PathPrefix
-  path: /
-  port:
-    number: 80
+# httproute:
+#   enabled: true
+#   gatewayName: traefik-gateway
+#   gatewayNamespace: default
+#   hostname: homepage.siddhomelab.cc
+#   pathType: PathPrefix
+#   path: /
+#   port:
+#     number: 80
   
-  rateLimit:
-    average: 5
-    burst: 10
+#   rateLimit:
+#     average: 5
+#     burst: 10
 
 
 nodeSelector:
