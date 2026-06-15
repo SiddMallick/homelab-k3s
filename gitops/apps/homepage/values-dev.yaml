@@ -180,7 +180,7 @@ config:
   docker: ""
 
 ingress:
-  enabled: false
+  enabled: true
   className: traefik
   host: homepage.siddhomelab.cc
   path: /
