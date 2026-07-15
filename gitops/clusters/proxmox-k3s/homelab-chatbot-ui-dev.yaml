@@ -3,10 +3,12 @@ kind: Application
 metadata:
   name: homelab-chatbot-ui-dev
   namespace: argocd
+  finalizers:
+   - resources-finalizer.argocd.argoproj.io
+
 
 spec:
   project: default
-
   sources:
     # Values repo
     - repoURL: https://github.com/SiddMallick/homelab-k3s
