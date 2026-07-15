@@ -47,3 +47,7 @@ prometheus:
     requests:
       cpu: 100m
       memory: 128Mi
+
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
